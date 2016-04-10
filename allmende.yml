@@ -3,8 +3,7 @@ version: '2'
 services:
 
   vector:
-    build:
-      context: ./images/vector/
+    image: allmende/vector
     command: start
     environment:
       VIRTUAL_HOST: vector.allmende.io
@@ -17,8 +16,7 @@ services:
       - /srv/matrix/allmende:/data
 
   matrix:
-    build:
-      context: ./images/matrix/
+    image: allmende/synapse
     command: start
     environment:
       VIRTUAL_HOST: matrix.allmende.io
@@ -31,8 +29,7 @@ services:
       - /srv/matrix/allmende:/data
 
   coturn:
-    build:
-      context: ./images/coturn/
+    image: allmende/coturn
     command: start
     expose:
       - "3478"

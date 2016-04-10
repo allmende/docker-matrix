@@ -3,8 +3,7 @@ version: '2'
 services:
 
   vector:
-    build:
-      context: ./images/vector/
+    image: allmende/vector
     command: generate
     volumes:
       - /srv/matrix/example:/data
@@ -12,8 +11,7 @@ services:
       - SERVER_NAME=matrix.allmende.io
 
   matrix:
-    build:
-      context: ./images/matrix/
+    image: allmende/synapse
     command: generate
     volumes:
       - /srv/matrix/example:/data
@@ -24,8 +22,7 @@ services:
       - coturn
 
   coturn:
-    build:
-      context: ./images/coturn/
+    image: allmende/coturn
     command: generate
     volumes:
       - /srv/matrix/example:/data

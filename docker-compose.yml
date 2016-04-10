@@ -3,8 +3,7 @@ version: '2'
 services:
 
   vector:
-    build:
-      context: ./images/vector/
+    image: allmende/vector
     command: start
     ports:
       - "8080:8080"
@@ -12,8 +11,7 @@ services:
       - /srv/matrix/example:/data
 
   matrix:
-    build:
-      context: ./images/matrix/
+    image: allmende/synapse
     command: start
     ports:
       - "8448:8448"
@@ -21,8 +19,7 @@ services:
       - /srv/matrix/example:/data
 
   coturn:
-    build:
-      context: ./images/coturn/
+    image: allmende/coturn
     command: start
     expose:
       - "3478"
