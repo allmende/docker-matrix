@@ -27,6 +27,14 @@ services:
       - "5349"
       - "5350"
     ports:
-      - "3478:3478"
+      - "3478:3478/udp"
+    volumes:
+      - /srv/matrix/example:/data
+
+  sydent:
+    image: allmende/sydent
+    command: start
+    ports:
+      - "8090":"8090"
     volumes:
       - /srv/matrix/example:/data
