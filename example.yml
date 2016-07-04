@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+  vector:
+    image: allmende/vector
+    command: start
+    ports:
+      - "8080:8080"
+    volumes:
+      - /srv/matrix/example:/data
+
+  matrix:
+    image: allmende/synapse
+    command: start
+    ports:
+      - "8448:8448"
+    volumes:
+      - /srv/matrix/example:/data
+
+  coturn:
+    image: allmende/coturn
+    command: start
+    expose:
+      - "3478"
+      - "3479"
+      - "5349"
+      - "5350"
+    ports:
+      - "3478:3478"
+    volumes:
+      - /srv/matrix/example:/data
