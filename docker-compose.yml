@@ -4,6 +4,7 @@ services:
 
   vector:
     image: allmende/vector:0.7.3
+    restart: always
     command: start
     environment:
       VIRTUAL_HOST: vector.allmende.io
@@ -16,7 +17,8 @@ services:
       - /srv/matrix/allmende:/data
 
   matrix:
-    image: allmende/synapse:0.16.1
+    image: allmende/synapse:v0.18.7
+    restart: always
     command: start
     environment:
       VIRTUAL_HOST: matrix.allmende.io
@@ -27,9 +29,13 @@ services:
       - "8080"
     volumes:
       - /srv/matrix/allmende:/data
+      - /srv/nginx/certs/matrix.allmende.io/fullchain.pem:/data/matrix.allmende.io.crt
+      - /srv/nginx/certs/matrix.allmende.io/key.pem:/data/matrix.allmende.io.key
+      - /srv/nginx/certs/dhparam.pem:/data/matrix.allmende.io.dhparam.pem
 
   coturn:
     image: allmende/coturn
+    restart: always
     command: start
     expose:
       - "3478"
