@@ -32,6 +32,8 @@ services:
       - /srv/nginx/certs/matrix.allmende.io/fullchain.pem:/data/matrix.allmende.io.crt
       - /srv/nginx/certs/matrix.allmende.io/key.pem:/data/matrix.allmende.io.key
       - /srv/nginx/certs/dhparam.pem:/data/matrix.allmende.io.dhparam.pem
+    logging:
+      driver: none
 
   coturn:
     image: allmende/coturn
