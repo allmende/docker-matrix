@@ -15,9 +15,13 @@ services:
       - "8080"
     volumes:
       - /srv/matrix/allmende:/data
+    logging:
+      driver: none
+    networks:
+      - frontend
 
   matrix:
-    image: allmende/synapse:v0.18.7
+    image: allmende/synapse:v0.21.1
     restart: always
     command: start
     environment:
@@ -27,6 +31,8 @@ services:
       LETSENCRYPT_EMAIL: almereyda@allmende.io
     expose:
       - "8080"
+    ports:
+      - "8448:8448"
     volumes:
       - /srv/matrix/allmende:/data
       - /srv/nginx/certs/matrix.allmende.io/fullchain.pem:/data/matrix.allmende.io.crt
@@ -34,6 +40,9 @@ services:
       - /srv/nginx/certs/dhparam.pem:/data/matrix.allmende.io.dhparam.pem
     logging:
       driver: none
+    networks:
+      - frontend
+      - backend
 
   coturn:
     image: allmende/coturn
@@ -45,11 +54,32 @@ services:
       - "5349"
       - "5350"
     ports:
+      - "3478:3478"
       - "3478:3478/udp"
+      - "3479:3479"
+      - "3479:3479/udp"
+      - "5349:5349"
+      - "5349:5349/udp"
+      - "5350:5350"
+      - "5350:5350/udp"
+#      - "49152-65535:49152-65535/udp"
     volumes:
       - /srv/matrix/allmende:/data
 
+  data:
+    image: "postgres:9.6.3-alpine"
+    restart: always
+    volumes:
+      - /srv/matrix/database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: matrix
+      POSTGRES_PASSWORD:
+    networks:
+      - backend
+
 networks:
-  default:
+  frontend:
     external:
       name: nginx_default
+  backend:
+    driver: bridge

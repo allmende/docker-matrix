@@ -10,6 +10,19 @@ services:
     environment:
       - SERVER_NAME=matrix.allmende.io
 
+  migrate:
+    image: allmende/synapse:v0.18.7
+    command: migrate
+    volumes:
+      - /srv/matrix/allmende:/data
+      - ./jobs.sh:/start.sh
+    environment:
+      - REPORT_STATS=yes
+      - SERVER_NAME=matrix.allmende.io
+      - TERM
+    networks:
+      - live
+
   matrix:
     image: allmende/synapse
     command: generate
@@ -28,3 +41,8 @@ services:
       - /srv/matrix/example:/data
     environment:
       - SERVER_NAME=matrix.allmende.io
+
+networks:
+  live:
+    external:
+      name: docker_backend

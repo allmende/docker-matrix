@@ -92,3 +92,10 @@ To debug the environments instead of the source images, use
     docker-compose rm
 
 instead.
+
+## Migration
+
+Create the database container first and start it, attached to the desired network.
+Then run the migration with
+
+    docker-compose -f generate.yml run --rm migrate
