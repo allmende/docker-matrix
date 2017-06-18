@@ -24,7 +24,7 @@ services:
       - live
 
   matrix:
-    image: allmende/synapse
+    image: allmende/synapse:v0.21.1
     command: generate
     volumes:
       - /srv/matrix/example:/data
