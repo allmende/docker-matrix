@@ -16,8 +16,6 @@ services:
       - "8080"
     volumes:
       - /srv/okfn-de-test/data:/data
-    logging:
-      driver: none
     networks:
       - frontend
 
@@ -37,8 +35,6 @@ services:
       - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/fullchain.pem:/data/okfn-de-test.matrix.allmende.io.crt
       - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/key.pem:/data/okfn-de-test.matrix.allmende.io.key
       - /srv/nginx/certs/dhparam.pem:/data/okfn-de-test.matrix.allmende.io.dhparam.pem
-    logging:
-      driver: none
     networks:
       - frontend
       - backend
