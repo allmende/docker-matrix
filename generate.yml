@@ -2,47 +2,11 @@ version: '2'
 
 services:
 
-  vector:
-    image: allmende/vector
-    command: generate
-    volumes:
-      - /srv/matrix/example:/data
-    environment:
-      - SERVER_NAME=matrix.allmende.io
-
-  migrate:
-    image: allmende/synapse:v0.18.7
-    command: migrate
-    volumes:
-      - /srv/matrix/allmende:/data
-      - ./jobs.sh:/start.sh
-    environment:
-      - REPORT_STATS=yes
-      - SERVER_NAME=matrix.allmende.io
-      - TERM
-    networks:
-      - live
-
   matrix:
     image: allmende/synapse:v0.21.1
     command: generate
     volumes:
-      - /srv/matrix/example:/data
+      - /srv/okfn-de-test/data:/data
     environment:
       - REPORT_STATS=yes
-      - SERVER_NAME=matrix.allmende.io
-    depends_on:
-      - coturn
-
-  coturn:
-    image: allmende/coturn
-    command: generate
-    volumes:
-      - /srv/matrix/example:/data
-    environment:
-      - SERVER_NAME=matrix.allmende.io
-
-networks:
-  live:
-    external:
-      name: docker_backend
+      - SERVER_NAME=okfn-de-test.matrix.allmende.io
