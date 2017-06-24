@@ -10,7 +10,7 @@ services:
     environment:
       VIRTUAL_HOST: okfn-de-test.riot.allmende.io
       VIRTUAL_PORT: 8080
-      LETSENCRYPT_HOST: riot.allmende.io
+      LETSENCRYPT_HOST: okfn-de-test.riot.allmende.io
       LETSENCRYPT_EMAIL: almeryda@allmende.io
     expose:
       - "8080"
