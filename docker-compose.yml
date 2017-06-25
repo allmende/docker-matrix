@@ -32,9 +32,10 @@ services:
       - "8008"
     volumes:
       - /srv/okfn-de-test/data:/data
-      - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/fullchain.pem:/data/okfn-de-test.matrix.allmende.io.crt
-      - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/key.pem:/data/okfn-de-test.matrix.allmende.io.key
-      - /srv/nginx/certs/dhparam.pem:/data/okfn-de-test.matrix.allmende.io.dhparam.pem
+        # uncomment these lines after your https://github.com/ecobytes/docker-nginx-gen-letsencrypt has created certificate already, if you need to serve the same certificates for the frontend termination at port 443 and the federation port 8448, if exposed via homeserver.yaml and a ports directive here.
+        #      - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/fullchain.pem:/data/okfn-de-test.matrix.allmende.io.crt
+        #      - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/key.pem:/data/okfn-de-test.matrix.allmende.io.key
+        #      - /srv/nginx/certs/dhparam.pem:/data/okfn-de-test.matrix.allmende.io.dhparam.pem
     networks:
       - frontend
       - backend
