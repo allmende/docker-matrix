@@ -25,11 +25,11 @@ services:
     command: start
     environment:
       VIRTUAL_HOST: okfn-de-test.matrix.allmende.io
-      VIRTUAL_PORT: 8080
+      VIRTUAL_PORT: 8008
       LETSENCRYPT_HOST: okfn-de-test.matrix.allmende.io
       LETSENCRYPT_EMAIL: almereyda@allmende.io
     expose:
-      - "8080"
+      - "8008"
     volumes:
       - /srv/okfn-de-test/data:/data
       - /srv/nginx/certs/okfn-de-test.matrix.allmende.io/fullchain.pem:/data/okfn-de-test.matrix.allmende.io.crt
