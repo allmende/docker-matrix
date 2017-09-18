@@ -2,26 +2,8 @@ version: '2'
 
 services:
 
-  vector:
-    image: allmende/vector:0.7.3
-    restart: always
-    command: start
-    environment:
-      VIRTUAL_HOST: vector.allmende.io
-      VIRTUAL_PORT: 8080
-      LETSENCRYPT_HOST: vector.allmende.io
-      LETSENCRYPT_EMAIL: almeryda@allmende.io
-    expose:
-      - "8080"
-    volumes:
-      - /srv/matrix/allmende:/data
-    logging:
-      driver: none
-    networks:
-      - frontend
-
   riot:
-    image: allmende/riot:2017-06-19
+    image: allmende/riot:20170918
     restart: always
     command: start
     environment:
@@ -39,7 +21,7 @@ services:
       - frontend
 
   matrix:
-    image: allmende/synapse:v0.21.1
+    image: allmende/synapse:v0.22.1
     restart: always
     command: start
     environment:
