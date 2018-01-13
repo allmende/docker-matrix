@@ -20,7 +20,7 @@ services:
       - frontend-web
 
   matrix:
-    image: allmende/synapse:v0.22.1
+    image: allmende/synapse:v0.25.1
     command: start
     environment:
       VIRTUAL_HOST: matrix.allmende.io
