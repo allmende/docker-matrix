@@ -4,7 +4,6 @@ services:
 
   riot:
     image: allmende/riot:20170918
-    restart: always
     command: start
     environment:
       VIRTUAL_HOST: riot.allmende.io
@@ -14,15 +13,14 @@ services:
     expose:
       - "8080"
     volumes:
-      - /srv/matrix/allmende:/data
+      - /data/domains/matrix.allmende.io/allmende:/data
     logging:
       driver: none
     networks:
-      - frontend
+      - frontend-web
 
   matrix:
     image: allmende/synapse:v0.22.1
-    restart: always
     command: start
     environment:
       VIRTUAL_HOST: matrix.allmende.io
@@ -34,19 +32,15 @@ services:
     ports:
       - "8448:8448"
     volumes:
-      - /srv/matrix/allmende:/data
-      - /srv/nginx/certs/matrix.allmende.io/fullchain.pem:/data/matrix.allmende.io.crt
-      - /srv/nginx/certs/matrix.allmende.io/key.pem:/data/matrix.allmende.io.key
-      - /srv/nginx/certs/dhparam.pem:/data/matrix.allmende.io.dhparam.pem
+      - /data/domains/matrix.allmende.io/allmende:/data
     logging:
       driver: none
     networks:
-      - frontend
+      - frontend-web
       - backend
 
   coturn:
     image: allmende/coturn
-    restart: always
     command: start
     expose:
       - "3478"
@@ -64,22 +58,24 @@ services:
       - "5350:5350/udp"
 #      - "49152-65535:49152-65535/udp"
     volumes:
-      - /srv/matrix/allmende:/data
+      - /data/domains/matrix.allmende.io/allmende:/data
+    logging:
+      driver: none
 
   data:
     image: "postgres:9.6.3-alpine"
-    restart: always
     volumes:
-      - /srv/matrix/database:/var/lib/postgresql/data
+      - /data/bases/matrix.allmende.io/database:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: matrix
       POSTGRES_PASSWORD:
     networks:
       - backend
+    logging:
+      driver: none
 
 networks:
-  frontend:
-    external:
-      name: nginx_default
+  frontend-web:
+    external: true
   backend:
     driver: bridge
